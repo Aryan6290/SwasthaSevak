@@ -19,3 +19,7 @@ export class Database {
         return this.client.db(this.dbname);
     }
 }
+
+export const COLLECTIONS = {
+    USERS: "users"
+}
