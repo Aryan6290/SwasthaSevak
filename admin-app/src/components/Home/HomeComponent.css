@@ -1,0 +1,29 @@
+.gridContainer {
+  margin: 25px;
+  display: grid;
+  grid-template-columns: 49% 49%;
+  grid-template-rows: 250px 250px;
+  grid-gap: 20px;
+}
+.gridContainer a {
+  text-decoration: none;
+  color: black;
+}
+
+.gridItem {
+  width: 100%;
+  background-color: #6747f7;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.gridItem:hover {
+  opacity: 0.9;
+}
+h3 {
+  margin-top: 25px;
+}
