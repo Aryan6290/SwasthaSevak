@@ -51,7 +51,7 @@ export class UserFunctions {
         return;
       }
       const hashed = await bcrypt.hash(password, 10);
-      const resp = await this.db.collection(COLLECTIONS.DISTRIBUTORS).insertOne({
+      const resp = await this.db.collection("distributors").insertOne({
         name,
         photo,
         phoneNum,
@@ -79,13 +79,23 @@ export class UserFunctions {
   async registerHospital(req: Request, res: Response) {
     try {
       const { name, phoneNum, address, email, password } = req.body;
-      const find = await this.db.collection(COLLECTIONS.HOSPITALS).findOne({ phoneNum });
-      if (find) {
+      const distributor = await this.db
+        .collection(COLLECTIONS.HOSPITALS)
+        .findOne({ phoneNum });
+      if (distributor) {
         res.status(400).send({ status: false, message: "Bad Request" });
         return;
       }
       const hashed = await bcrypt.hash(password, 10);
-      const resp = await this.db.collection(COLLECTIONS.HOSPITALS).insertOne({ name, phoneNum, address, email, hashed, status: "pending" });
+      const resp = await this.db.collection("distributors").insertOne({
+        name,
+        phoneNum,
+        email,
+        address,
+        hashed,
+        status: "pending"
+      });
+
       if (resp.insertedCount > 0) {
         res.status(200).send({
           status: true,
@@ -94,6 +104,25 @@ export class UserFunctions {
         });
       } else {
         res.status(400).send({ status: false, message: "Couldn't insert" });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({ status: false, message: "Error in Backend" });
+    }
+  }
+
+  async getHospital(req: Request, res: Response) {
+    try {
+      const { id } = req.body;
+      const hospital = await this.db
+        .collection(COLLECTIONS.HOSPITALS)
+        .findOne({ id });
+      if (hospital.insertedCount > 0) {
+        res.json(hospital).status(200);
+      } else {
+        res
+          .status(200)
+          .send({ status: false, message: "No such hospital exists" });
       }
     } catch (err) {
       console.log(err);
