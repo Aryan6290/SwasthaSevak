@@ -14,6 +14,9 @@ export class DistributorRoutes {
             .get("", (req, res) => {
                 this.funcs.getAllDistributor(req, res);
             })
+            .put("/approval", (req, res) => {
+                this.funcs.approveDistributor(req, res);
+            })
             .get("/:_id", (req, res) => {
                 this.funcs.getDistributor(req, res);
             })

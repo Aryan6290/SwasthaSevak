@@ -70,13 +70,28 @@ export class HospitalFunctions {
 
     async updateBedCount(req: Request, res: Response) {
         try {
-            const hospitalId = res.locals.user._id;
+            const hospitalId = new ObjectId(res.locals.user._id);
             const { newCount } = req.body;
             const update = await this.db.collection(COLLECTIONS.BEDS).updateOne({ hospitalId }, { $set: { bedCount: newCount } });
             if (update.modifiedCount > 0) {
                 res.status(200).send({ status: true, message: "count updated" });
             } else {
                 res.status(400).send({ status: false, message: "couldnt update" });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(500).send({ status: false, message: "Error in Backend" });
+        }
+    }
+
+    async approveHospital(req: Request, res: Response) {
+        try {
+            const hospitalId = res.locals.user._id;
+            const update = await this.db.collection(COLLECTIONS.HOSPITALS).updateOne({ _id: new ObjectId(hospitalId) }, { $set: { status: "approved" } });
+            if (update.modifiedCount > 0) {
+                res.status(200).send({ status: true, message: "approved" });
+            } else {
+                res.status(400).send({ status: false, message: "couldn't approve" });
             }
         } catch (err) {
             console.log(err);

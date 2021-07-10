@@ -46,4 +46,18 @@ export class DistributorFunctions {
         }
     }
 
+    async approveDistributor(req: Request, res: Response) {
+        try {
+            const distributorId = res.locals.user._id;
+            const update = await this.db.collection(COLLECTIONS.DISTRIBUTORS).updateOne({ _id: new ObjectId(distributorId) }, { $set: { status: "approved" } });
+            if (update.modifiedCount > 0) {
+                res.status(200).send({ status: true, message: "approved" });
+            } else {
+                res.status(400).send({ status: false, message: "couldn't approve" });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(500).send({ status: false, message: "Error in Backend" });
+        }
+    }
 }

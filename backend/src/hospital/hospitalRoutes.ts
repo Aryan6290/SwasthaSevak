@@ -21,6 +21,9 @@ export class HospitalRoutes {
             .put("/bed", (req, res) => {
                 this.funcs.updateBedCount(req, res);
             })
+            .put("/approval", auth, (req, res) => {
+                this.funcs.approveHospital(req, res);
+            })
             .get("/:_id", (req, res) => {
                 this.funcs.getHospital(req, res);
             })
