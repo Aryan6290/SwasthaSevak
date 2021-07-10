@@ -47,4 +47,40 @@ export class HospitalFunctions {
         }
     }
 
+    async initializeBedCount(req: Request, res: Response) {
+        try {
+            const hospitalId = res.locals.user._id;
+            const { bedCount } = req.body;
+            const find = await this.db.collection(COLLECTIONS.HOSPITALS).findOne({ _id: new ObjectId(hospitalId) });
+            if (!find) {
+                res.status(404).send({ status: false, message: "Hospital not found" });
+                return;
+            }
+            const insert = await this.db.collection(COLLECTIONS.BEDS).insertOne({ hospitalId, bedCount });
+            if (insert.insertedCount > 0) {
+                res.status(200).send({ status: true, message: "beds created" });
+            } else {
+                res.status(400).send({ status: false, message: "data cant be inserted" });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(500).send({ status: false, message: "Error in Backend" });
+        }
+    }
+
+    async updateBedCount(req: Request, res: Response) {
+        try {
+            const hospitalId = res.locals.user._id;
+            const { newCount } = req.body;
+            const update = await this.db.collection(COLLECTIONS.BEDS).updateOne({ hospitalId }, { $set: { bedCount: newCount } });
+            if (update.modifiedCount > 0) {
+                res.status(200).send({ status: true, message: "count updated" });
+            } else {
+                res.status(400).send({ status: false, message: "couldnt update" });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(500).send({ status: false, message: "Error in Backend" });
+        }
+    }
 }

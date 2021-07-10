@@ -23,5 +23,6 @@ export class Database {
 export const COLLECTIONS = {
   USERS: "users",
   DISTRIBUTORS: "distributors",
-  HOSPITALS: "hospitals"
+  HOSPITALS: "hospitals",
+  BEDS: "beds"
 };
