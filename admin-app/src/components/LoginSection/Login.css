@@ -27,7 +27,7 @@ input {
   border: 1px solid white;
   border-radius: 25px;
 }
-button {
+.loginButton {
   background: white;
   margin-top: 25px;
   width: 150px;

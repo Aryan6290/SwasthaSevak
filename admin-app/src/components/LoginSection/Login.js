@@ -8,11 +8,11 @@ const Login = ({ changeRouter }) => {
     <IconContext.Provider value={{ size: "7em", color: "#fff" }}>
       <div className="loginContainer">
         <form action="/login" method="post">
-          <div class="imgContainer">
+          <div className="imgContainer">
             <RiIcons.RiAdminFill />
           </div>
 
-          <label htmlFor="uname">{/* <b>Username</b> */}</label>
+          <label htmlFor="uname"></label>
           <input
             type="text"
             placeholder="Enter Username"
@@ -28,18 +28,9 @@ const Login = ({ changeRouter }) => {
             required
           />
 
-          <button type="submit" onClick={changeRouter}>
+          <button type="submit" className="loginButton" onClick={changeRouter}>
             Login
           </button>
-
-          {/* <div class="container" style="background-color:#f1f1f1">
-          <button type="button" class="cancelbtn">
-            Cancel
-          </button>
-          <span class="psw">
-            Forgot <a href="#">password?</a>
-          </span>
-        </div> */}
         </form>
       </div>
     </IconContext.Provider>

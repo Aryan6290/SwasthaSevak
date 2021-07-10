@@ -1,7 +1,12 @@
 import React from "react";
 import "./ListComponent.css";
 
-const ListComponent = ({ heading, data }) => {
+const ListComponent = ({ heading, data, category }) => {
+  const handleClick = (id) => {
+    fetch(`https://swastha-sevak-backend.herokuapp.com/api/${category}/${id}`)
+      .then((response) => response.json())
+      .then((response) => console.log(response));
+  };
   return (
     <div className="listContainer">
       <div className="listHeader">
@@ -16,12 +21,14 @@ const ListComponent = ({ heading, data }) => {
           </select>
         </div>
       </div>
+
       <table>
         <thead>
           <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Status</th>
+            <th>Approve</th>
           </tr>
         </thead>
         <tbody>
@@ -34,6 +41,9 @@ const ListComponent = ({ heading, data }) => {
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.status}</td>
+                <td>
+                  <button onClick={() => handleClick(item._id)}>Approve</button>
+                </td>
               </tr>
             );
           })}

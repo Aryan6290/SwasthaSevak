@@ -7,6 +7,7 @@ import Hospitals from "./pages/Hospitals";
 import Distributor from "./pages/Distributor";
 import PendingRequests from "./pages/PendingRequests";
 import Login from "./components/LoginSection/Login";
+// import Detail from "./components/Details/Detail";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -16,21 +17,16 @@ const App = () => {
 
   return (
     <>
-      {/* <Router> */}
       <div style={{ display: "flex", flexWrap: "flex-wrap" }}>
         {isLoggedIn ? (
           <Router>
             <SideBar />
 
             <Switch>
-              {/* <Route
-              path="/"
-              exact
-              component={() => <Login changeRouter={changeRouter} />}
-            /> */}
               <Route path="/" exact component={Dashboard} />
               <Route path="/hospitals" component={Hospitals} />
               <Route path="/distributors" component={Distributor} />
+              {/* <Route path="/distributors/:_id" component={Dashboard} /> */}
               <Route path="/requests" component={PendingRequests} />
             </Switch>
           </Router>
@@ -38,7 +34,6 @@ const App = () => {
           <Login changeRouter={changeRouter} />
         )}
       </div>
-      {/* </Router> */}
     </>
   );
 };
