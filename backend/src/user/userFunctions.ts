@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { COLLECTIONS } from "../utils/database";
 export class UserFunctions {
-  constructor(private db: Db) {}
+  constructor(private db: Db) { }
 
   async registerUser(req: Request, res: Response) {
     try {
@@ -188,6 +188,21 @@ export class UserFunctions {
     try {
       const user = res.locals.user;
       res.status(200).send({ status: true, message: "success", data: user });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({ status: false, message: "Error in Backend" });
+    }
+  }
+
+  async adminLogin(req: Request, res: Response) {
+    try {
+      const { password } = req.body;
+      if (password == '123456789') {
+        const token = jwt.sign({ name: "admin" }, "super-duper-secret");
+        res.status(200).send({ status: true, message: "logged in", data: token });
+      } else {
+        res.status(400).send({ status: false, message: "cant login" });
+      }
     } catch (err) {
       console.log(err);
       res.status(500).send({ status: false, message: "Error in Backend" });
