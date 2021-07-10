@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { COLLECTIONS } from "../utils/database";
 export class UserFunctions {
-  constructor(private db: Db) { }
+  constructor(private db: Db) {}
 
   async registerUser(req: Request, res: Response) {
     try {
@@ -42,7 +42,8 @@ export class UserFunctions {
   // Register Distributor Function
   async registerDistributor(req: Request, res: Response) {
     try {
-      const { name, photo, phoneNum, address, gstin, password, type } = req.body;
+      const { name, photo, phoneNum, address, gstin, password, type } =
+        req.body;
       const distributor = await this.db
         .collection(COLLECTIONS.DISTRIBUTORS)
         .findOne({ phoneNum });
@@ -87,7 +88,7 @@ export class UserFunctions {
         return;
       }
       const hashed = await bcrypt.hash(password, 10);
-      const resp = await this.db.collection("distributors").insertOne({
+      const resp = await this.db.collection("hospitals").insertOne({
         name,
         phoneNum,
         email,
