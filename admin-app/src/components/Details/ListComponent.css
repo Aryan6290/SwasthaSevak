@@ -1,0 +1,46 @@
+.listHeader {
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.statusContainer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.statusContainer label {
+  margin-left: 10px;
+  color: #6747f7;
+}
+.statusContainer select {
+  color: #6747f7;
+  border: none;
+  outline: none;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead {
+  text-align: left;
+}
+tr {
+  font-weight: 700;
+  border: 1px solid #ececec;
+}
+.tr-light {
+  background-color: white;
+}
+.tr-blue {
+  color: white;
+  background-color: #6747f7;
+}
+th {
+  padding: 15px;
+}
+td {
+  padding: 15px;
+}
