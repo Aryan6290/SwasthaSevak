@@ -2,21 +2,21 @@ import { Db, ObjectId } from "mongodb";
 import { COLLECTIONS } from "../utils/database";
 import { Request, Response } from "express";
 
-export class HospitalFunctions {
+export class DistributorFunctions {
     constructor(private db: Db) { }
 
-    async getHospital(req: Request, res: Response) {
+    async getDistributor(req: Request, res: Response) {
         try {
             const { _id } = req.params;
-            const hospital = await this.db
-                .collection(COLLECTIONS.HOSPITALS)
+            const dist = await this.db
+                .collection(COLLECTIONS.DISTRIBUTORS)
                 .findOne({ _id: new ObjectId(_id) });
-            if (hospital) {
-                res.status(200).send({ status: true, message: "successs", data: hospital });
+            if (dist) {
+                res.status(200).send({ status: true, message: "successs", data: dist });
             } else {
                 res
                     .status(404)
-                    .send({ status: false, message: "No such hospital exists" });
+                    .send({ status: false, message: "Nothing found" });
             }
         } catch (err) {
             console.log(err);
@@ -25,20 +25,20 @@ export class HospitalFunctions {
     }
 
     //Get All hospital
-    async getAllHospital(req: Request, res: Response) {
+    async getAllDistributor(req: Request, res: Response) {
         try {
-            const hospital = await this.db
+            const distributor = await this.db
                 .collection(COLLECTIONS.HOSPITALS)
                 .find({ status: req.query.status }).toArray();
 
-            if (hospital) {
-                res.status(200).send({ status: true, message: "success", data: hospital });
+            if (distributor) {
+                res.status(200).send({ status: true, message: "success", data: distributor });
             } else {
                 res
                     .status(404)
                     .send({
                         status: false,
-                        message: "No hospital till now has been approved",
+                        message: "Nothing found",
                     });
             }
         } catch (err) {
