@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { COLLECTIONS } from "../utils/database";
 export class UserFunctions {
-  constructor(private db: Db) {}
+  constructor(private db: Db) { }
 
   async registerUser(req: Request, res: Response) {
     try {
@@ -48,15 +48,17 @@ export class UserFunctions {
         .findOne({ phoneNum });
       if (distributor) {
         res.status(400).send({ status: false, message: "Bad Request" });
+        return;
       }
       const hashed = await bcrypt.hash(password, 10);
-      const resp = await this.db.collection("distributors").insertOne({
+      const resp = await this.db.collection(COLLECTIONS.DISTRIBUTORS).insertOne({
         name,
         photo,
         phoneNum,
         address,
         gstin,
         hashed,
+        status: "pending"
       });
 
       if (resp.insertedCount > 0) {
@@ -74,9 +76,34 @@ export class UserFunctions {
     }
   }
 
+  async registerHospital(req: Request, res: Response) {
+    try {
+      const { name, phoneNum, address, email, password } = req.body;
+      const find = await this.db.collection(COLLECTIONS.HOSPITALS).findOne({ phoneNum });
+      if (find) {
+        res.status(400).send({ status: false, message: "Bad Request" });
+        return;
+      }
+      const hashed = await bcrypt.hash(password, 10);
+      const resp = await this.db.collection(COLLECTIONS.HOSPITALS).insertOne({ name, phoneNum, address, email, hashed, status: "pending" });
+      if (resp.insertedCount > 0) {
+        res.status(200).send({
+          status: true,
+          message: "successfully inserted",
+          data: resp.insertedId,
+        });
+      } else {
+        res.status(400).send({ status: false, message: "Couldn't insert" });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({ status: false, message: "Error in Backend" });
+    }
+  }
+
   async loginUser(req: Request, res: Response) {
     try {
-      const { phoneNum, password } = req.body;
+      const { userType, phoneNum, password } = req.body;
       const find = await this.db
         .collection(COLLECTIONS.USERS)
         .findOne({ phoneNum });
