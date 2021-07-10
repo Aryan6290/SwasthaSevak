@@ -48,7 +48,12 @@ export class DistributorFunctions {
 
     async approveDistributor(req: Request, res: Response) {
         try {
-            const distributorId = res.locals.user._id;
+            const user = res.locals.user;
+            if (user.name != "admin") {
+                res.status(400).send({ status: false, message: "forbidden" });
+                return;
+            }
+            const distributorId = req.body.distributorId;
             const update = await this.db.collection(COLLECTIONS.DISTRIBUTORS).updateOne({ _id: new ObjectId(distributorId) }, { $set: { status: "approved" } });
             if (update.modifiedCount > 0) {
                 res.status(200).send({ status: true, message: "approved" });

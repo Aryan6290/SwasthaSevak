@@ -86,7 +86,12 @@ export class HospitalFunctions {
 
     async approveHospital(req: Request, res: Response) {
         try {
-            const hospitalId = res.locals.user._id;
+            const user = res.locals.user;
+            if (user.name != "admin") {
+                res.status(400).send({ status: false, message: "forbidden" });
+                return;
+            }
+            const hospitalId = req.body.hospitalId;
             const update = await this.db.collection(COLLECTIONS.HOSPITALS).updateOne({ _id: new ObjectId(hospitalId) }, { $set: { status: "approved" } });
             if (update.modifiedCount > 0) {
                 res.status(200).send({ status: true, message: "approved" });
