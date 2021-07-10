@@ -1,4 +1,4 @@
-import { Db } from "mongodb";
+import { Db, ObjectId } from "mongodb";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -113,15 +113,15 @@ export class UserFunctions {
   //Get Hospital
   async getHospital(req: Request, res: Response) {
     try {
-      const { id } = req.body;
+      const { _id } = req.body;
       const hospital = await this.db
         .collection(COLLECTIONS.HOSPITALS)
-        .findOne({ id });
-      if (hospital.insertedCount > 0) {
-        res.json(hospital).status(200);
+        .findOne({ _id: new ObjectId(_id) });
+      if (hospital) {
+        res.status(200).send({ status: true, message: "successs", data: hospital });
       } else {
         res
-          .status(200)
+          .status(404)
           .send({ status: false, message: "No such hospital exists" });
       }
     } catch (err) {
@@ -131,17 +131,17 @@ export class UserFunctions {
   }
 
   //Get All hospital
-  async getAllHospital(res: Response) {
+  async getAllHospital(req: Request, res: Response) {
     try {
       const hospital = await this.db
         .collection(COLLECTIONS.HOSPITALS)
-        .find({ status: "approve" });
+        .find({ status: "approved" }).toArray();
 
       if (hospital) {
-        res.json(hospital).status(200);
+        res.status(200).send({ status: true, message: "success", data: hospital });
       } else {
         res
-          .status(200)
+          .status(404)
           .send({
             status: false,
             message: "No hospital till now has been approved",
