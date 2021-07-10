@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { COLLECTIONS } from "../utils/database";
 export class UserFunctions {
-  constructor(private db: Db) { }
+  constructor(private db: Db) {}
 
   async registerUser(req: Request, res: Response) {
     try {
@@ -48,17 +48,15 @@ export class UserFunctions {
         .findOne({ phoneNum });
       if (distributor) {
         res.status(400).send({ status: false, message: "Bad Request" });
-        return;
       }
       const hashed = await bcrypt.hash(password, 10);
-      const resp = await this.db.collection(COLLECTIONS.DISTRIBUTORS).insertOne({
+      const resp = await this.db.collection("distributors").insertOne({
         name,
         photo,
         phoneNum,
         address,
         gstin,
         hashed,
-        status: "pending"
       });
 
       if (resp.insertedCount > 0) {
@@ -76,24 +74,18 @@ export class UserFunctions {
     }
   }
 
-  async registerHospital(req: Request, res: Response) {
+  async getHospital(req: Request, res: Response) {
     try {
-      const { name, phoneNum, address, email, password } = req.body;
-      const find = await this.db.collection(COLLECTIONS.HOSPITALS).findOne({ phoneNum });
-      if (find) {
-        res.status(400).send({ status: false, message: "Bad Request" });
-        return;
-      }
-      const hashed = await bcrypt.hash(password, 10);
-      const resp = await this.db.collection(COLLECTIONS.HOSPITALS).insertOne({ name, phoneNum, address, email, hashed, status: "pending" });
-      if (resp.insertedCount > 0) {
-        res.status(200).send({
-          status: true,
-          message: "successfully inserted",
-          data: resp.insertedId,
-        });
+      const { id } = req.body;
+      const hospital = await this.db
+        .collection(COLLECTIONS.HOSPITALS)
+        .findOne({ id });
+      if (hospital.insertedCount > 0) {
+        res.json(hospital).status(200);
       } else {
-        res.status(400).send({ status: false, message: "Couldn't insert" });
+        res
+          .status(200)
+          .send({ status: false, message: "No such hospital exists" });
       }
     } catch (err) {
       console.log(err);
@@ -103,7 +95,7 @@ export class UserFunctions {
 
   async loginUser(req: Request, res: Response) {
     try {
-      const { userType, phoneNum, password } = req.body;
+      const { phoneNum, password } = req.body;
       const find = await this.db
         .collection(COLLECTIONS.USERS)
         .findOne({ phoneNum });
