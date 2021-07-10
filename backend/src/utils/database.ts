@@ -24,5 +24,6 @@ export const COLLECTIONS = {
   USERS: "users",
   DISTRIBUTORS: "distributors",
   HOSPITALS: "hospitals",
-  BEDS: "beds"
+  BEDS: "beds",
+  DONORS: "donors"
 };
