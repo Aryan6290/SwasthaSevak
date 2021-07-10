@@ -31,7 +31,7 @@ class HospitalFunctions {
         try {
             const hospital = await this.db
                 .collection(database_1.COLLECTIONS.HOSPITALS)
-                .find({ status: "approved" }).toArray();
+                .find({ status: req.query.status }).toArray();
             if (hospital) {
                 res.status(200).send({ status: true, message: "success", data: hospital });
             }

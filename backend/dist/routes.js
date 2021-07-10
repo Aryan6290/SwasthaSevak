@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Routes = void 0;
 const express_1 = require("express");
+const distributorRoutes_1 = require("./distributor/distributorRoutes");
 const hospitalRoutes_1 = require("./hospital/hospitalRoutes");
 const userRoutes_1 = require("./user/userRoutes");
 const database_1 = require("./utils/database");
@@ -18,7 +19,8 @@ class Routes {
         console.log("Db connected");
         this.router
             .use("/user", new userRoutes_1.UserRoutes(db).getRoutes())
-            .use("/hospital", new hospitalRoutes_1.HospitalRoutes(db).getRoutes());
+            .use("/hospital", new hospitalRoutes_1.HospitalRoutes(db).getRoutes())
+            .use("/distributor", new distributorRoutes_1.DistributorRoutes(db).getRoutes());
     }
 }
 exports.Routes = Routes;

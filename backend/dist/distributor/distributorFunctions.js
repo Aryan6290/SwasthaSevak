@@ -1,49 +1,53 @@
-import { Db, ObjectId } from "mongodb";
-import { COLLECTIONS } from "../utils/database";
-import { Request, Response } from "express";
-
-export class DistributorFunctions {
-    constructor(private db: Db) { }
-
-    async getDistributor(req: Request, res: Response) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DistributorFunctions = void 0;
+const mongodb_1 = require("mongodb");
+const database_1 = require("../utils/database");
+class DistributorFunctions {
+    constructor(db) {
+        this.db = db;
+    }
+    async getDistributor(req, res) {
         try {
             const { _id } = req.params;
             const dist = await this.db
-                .collection(COLLECTIONS.DISTRIBUTORS)
-                .findOne({ _id: new ObjectId(_id) });
+                .collection(database_1.COLLECTIONS.DISTRIBUTORS)
+                .findOne({ _id: new mongodb_1.ObjectId(_id) });
             if (dist) {
                 res.status(200).send({ status: true, message: "successs", data: dist });
-            } else {
+            }
+            else {
                 res
                     .status(404)
                     .send({ status: false, message: "Nothing found" });
             }
-        } catch (err) {
+        }
+        catch (err) {
             console.log(err);
             res.status(500).send({ status: false, message: "Error in Backend" });
         }
     }
-
-    //Get All hospital
-    async getAllDistributor(req: Request, res: Response) {
+    async getAllDistributor(req, res) {
         try {
             const distributor = await this.db
-                .collection(COLLECTIONS.DISTRIBUTORS)
+                .collection(database_1.COLLECTIONS.HOSPITALS)
                 .find({ status: req.query.status }).toArray();
             if (distributor) {
                 res.status(200).send({ status: true, message: "success", data: distributor });
-            } else {
+            }
+            else {
                 res
                     .status(404)
                     .send({
-                        status: false,
-                        message: "Nothing found",
-                    });
+                    status: false,
+                    message: "Nothing found",
+                });
             }
-        } catch (err) {
+        }
+        catch (err) {
             console.log(err);
             res.status(500).send({ status: false, message: "Error in Backend" });
         }
     }
-
 }
+exports.DistributorFunctions = DistributorFunctions;

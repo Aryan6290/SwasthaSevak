@@ -48,7 +48,7 @@ class UserFunctions {
     }
     async registerDistributor(req, res) {
         try {
-            const { name, photo, phoneNum, address, gstin, password } = req.body;
+            const { name, photo, phoneNum, address, gstin, password, type } = req.body;
             const distributor = await this.db
                 .collection(database_1.COLLECTIONS.DISTRIBUTORS)
                 .findOne({ phoneNum });
@@ -64,7 +64,7 @@ class UserFunctions {
                 address,
                 gstin,
                 hashed,
-                status: "pending"
+                status: "pending",
             });
             if (resp.insertedCount > 0) {
                 res.status(200).send({
@@ -99,7 +99,7 @@ class UserFunctions {
                 email,
                 address,
                 hashed,
-                status: "pending"
+                status: "pending",
             });
             if (resp.insertedCount > 0) {
                 res.status(200).send({
@@ -124,7 +124,9 @@ class UserFunctions {
                 .collection(database_1.COLLECTIONS.HOSPITALS)
                 .findOne({ _id: new mongodb_1.ObjectId(_id) });
             if (hospital) {
-                res.status(200).send({ status: true, message: "successs", data: hospital });
+                res
+                    .status(200)
+                    .send({ status: true, message: "successs", data: hospital });
             }
             else {
                 res
@@ -141,14 +143,15 @@ class UserFunctions {
         try {
             const hospital = await this.db
                 .collection(database_1.COLLECTIONS.HOSPITALS)
-                .find({ status: "approved" }).toArray();
+                .find({ status: "approved" })
+                .toArray();
             if (hospital) {
-                res.status(200).send({ status: true, message: "success", data: hospital });
+                res
+                    .status(200)
+                    .send({ status: true, message: "success", data: hospital });
             }
             else {
-                res
-                    .status(404)
-                    .send({
+                res.status(404).send({
                     status: false,
                     message: "No hospital till now has been approved",
                 });
@@ -169,9 +172,7 @@ class UserFunctions {
                 collection = database_1.COLLECTIONS.HOSPITALS;
             if (userType == "distributor")
                 collection = database_1.COLLECTIONS.DISTRIBUTORS;
-            const find = await this.db
-                .collection(collection)
-                .findOne({ phoneNum });
+            const find = await this.db.collection(collection).findOne({ phoneNum });
             if (!find) {
                 res.status(404).send({ status: false, message: "User not found" });
                 return;
