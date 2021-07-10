@@ -104,8 +104,12 @@ export class UserFunctions {
   async loginUser(req: Request, res: Response) {
     try {
       const { userType, phoneNum, password } = req.body;
+      let collection = "";
+      if (userType == "user") collection = COLLECTIONS.USERS;
+      if (userType == "hospital") collection = COLLECTIONS.HOSPITALS;
+      if (userType == "distributor") collection = COLLECTIONS.DISTRIBUTORS;
       const find = await this.db
-        .collection(COLLECTIONS.USERS)
+        .collection(collection)
         .findOne({ phoneNum });
       if (!find) {
         res.status(404).send({ status: false, message: "User not found" });
@@ -120,6 +124,16 @@ export class UserFunctions {
       res
         .status(200)
         .send({ status: true, message: "Signed in", data: userDetailsToken });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({ status: false, message: "Error in Backend" });
+    }
+  }
+
+  async getDetails(req: Request, res: Response) {
+    try {
+      const user = res.locals.user;
+      res.status(200).send({ status: true, message: "success", data: user });
     } catch (err) {
       console.log(err);
       res.status(500).send({ status: false, message: "Error in Backend" });

@@ -12,11 +12,20 @@ export class UserRoutes {
     getRoutes() {
         const auth = (new Auth()).verifyToken;
         return express.Router()
-            .post("/register", (req, res) => {
+            .post("/register/user", (req, res) => {
                 this.funcs.registerUser(req, res);
+            })
+            .post("/register/hospital", (req, res) => {
+                this.funcs.registerHospital(req, res);
+            })
+            .post("/register/distributor", (req, res) => {
+                this.funcs.registerDistributor(req, res);
             })
             .post("/login", (req, res) => {
                 this.funcs.loginUser(req, res);
+            })
+            .get("", auth, (req, res) => {
+                this.funcs.getDetails(req, res);
             });
     }
 }
