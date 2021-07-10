@@ -73,7 +73,7 @@ export class UserFunctions {
       res.status(500).send({ status: false, message: "Error in Backend" });
     }
   }
-
+  //Get Hospital
   async getHospital(req: Request, res: Response) {
     try {
       const { id } = req.body;
@@ -86,6 +86,29 @@ export class UserFunctions {
         res
           .status(200)
           .send({ status: false, message: "No such hospital exists" });
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({ status: false, message: "Error in Backend" });
+    }
+  }
+
+  //Get All hospital
+  async getAllHospital(res: Response) {
+    try {
+      const hospital = await this.db
+        .collection(COLLECTIONS.HOSPITALS)
+        .find({ status: "approve" });
+
+      if (hospital) {
+        res.json(hospital).status(200);
+      } else {
+        res
+          .status(200)
+          .send({
+            status: false,
+            message: "No hospital till now has been approved",
+          });
       }
     } catch (err) {
       console.log(err);
