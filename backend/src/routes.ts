@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { Db } from "mongodb";
+import { HospitalRoutes } from "./hospital/hospitalRoutes";
 import { UserRoutes } from "./user/userRoutes";
 import { Database } from "./utils/database";
 
@@ -15,6 +16,8 @@ export class Routes {
     async setupRoutes() {
         const db: Db = await new Database().connect();
         console.log("Db connected");
-        this.router.use("/user", new UserRoutes(db).getRoutes());
+        this.router
+            .use("/user", new UserRoutes(db).getRoutes())
+            .use("/hospital", new HospitalRoutes(db).getRoutes());
     }
 }
