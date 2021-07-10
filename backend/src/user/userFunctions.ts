@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { COLLECTIONS } from "../utils/database";
 export class UserFunctions {
-  constructor(private db: Db) { }
+  constructor(private db: Db) {}
 
   async registerUser(req: Request, res: Response) {
     try {
@@ -58,7 +58,7 @@ export class UserFunctions {
         address,
         gstin,
         hashed,
-        status: "pending"
+        status: "pending",
       });
 
       if (resp.insertedCount > 0) {
@@ -93,7 +93,7 @@ export class UserFunctions {
         email,
         address,
         hashed,
-        status: "pending"
+        status: "pending",
       });
 
       if (resp.insertedCount > 0) {
@@ -118,7 +118,9 @@ export class UserFunctions {
         .collection(COLLECTIONS.HOSPITALS)
         .findOne({ _id: new ObjectId(_id) });
       if (hospital) {
-        res.status(200).send({ status: true, message: "successs", data: hospital });
+        res
+          .status(200)
+          .send({ status: true, message: "successs", data: hospital });
       } else {
         res
           .status(404)
@@ -135,17 +137,18 @@ export class UserFunctions {
     try {
       const hospital = await this.db
         .collection(COLLECTIONS.HOSPITALS)
-        .find({ status: "approved" }).toArray();
+        .find({ status: "approved" })
+        .toArray();
 
       if (hospital) {
-        res.status(200).send({ status: true, message: "success", data: hospital });
-      } else {
         res
-          .status(404)
-          .send({
-            status: false,
-            message: "No hospital till now has been approved",
-          });
+          .status(200)
+          .send({ status: true, message: "success", data: hospital });
+      } else {
+        res.status(404).send({
+          status: false,
+          message: "No hospital till now has been approved",
+        });
       }
     } catch (err) {
       console.log(err);
@@ -160,9 +163,7 @@ export class UserFunctions {
       if (userType == "user") collection = COLLECTIONS.USERS;
       if (userType == "hospital") collection = COLLECTIONS.HOSPITALS;
       if (userType == "distributor") collection = COLLECTIONS.DISTRIBUTORS;
-      const find = await this.db
-        .collection(collection)
-        .findOne({ phoneNum });
+      const find = await this.db.collection(collection).findOne({ phoneNum });
       if (!find) {
         res.status(404).send({ status: false, message: "User not found" });
         return;
