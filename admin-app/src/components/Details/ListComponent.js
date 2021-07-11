@@ -3,12 +3,6 @@ import "./ListComponent.css";
 
 const ListComponent = ({ heading, data, category, token, optionChange }) => {
   const handleClick = (id) => {
-    let jsonString = {};
-    if (category === "hospital") {
-      jsonString = { hospitalId: id };
-    } else if (category === "distributor") {
-      jsonString = { distributorId: id };
-    }
     fetch(
       `https://swastha-sevak-backend.herokuapp.com/api/${category}/approval`,
       {
@@ -18,11 +12,12 @@ const ListComponent = ({ heading, data, category, token, optionChange }) => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(jsonString),
+        body: JSON.stringify({ id: id }),
       }
     )
       .then((response) => response.json())
-      .then((response) => console.log(response));
+      .then((response) => alert("Approved Successfully"))
+      .catch((err) => alert("Not approved try again"));
   };
   return (
     <div className="listContainer">
@@ -43,7 +38,8 @@ const ListComponent = ({ heading, data, category, token, optionChange }) => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Email</th>
+            <th>Address</th>
+            <th>Contact Number</th>
             <th>Status</th>
             <th>Approve</th>
           </tr>
@@ -56,7 +52,8 @@ const ListComponent = ({ heading, data, category, token, optionChange }) => {
                 className={index % 2 === 0 ? "tr-light" : "tr-blue"}
               >
                 <td>{item.name}</td>
-                <td>{item.email}</td>
+                <td>{item.address}</td>
+                <td>{item.phoneNum}</td>
                 <td>{item.status}</td>
                 {item.status === "pending" ? (
                   <td>

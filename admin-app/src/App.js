@@ -17,7 +17,6 @@ const App = () => {
     fetch("https://swastha-sevak-backend.herokuapp.com/api/user/adminlogin", {
       method: "POST",
       headers: {
-        // Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -27,6 +26,7 @@ const App = () => {
       .then((response) => response.json())
       .then((response) => {
         if (response.status) {
+          console.log(response.status);
           setIsLoggedIn(!isLoggedIn);
           setToken(response.data);
         } else {
@@ -56,7 +56,6 @@ const App = () => {
                 path="/distributors"
                 component={() => <Distributor token={token} />}
               />
-              {/* <Route path="/distributors/:_id" component={Dashboard} /> */}
             </Switch>
           </Router>
         ) : (
