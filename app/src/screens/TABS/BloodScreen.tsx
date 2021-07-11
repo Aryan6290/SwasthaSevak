@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
+import BPbox from '../../components/BPbox';
 
 import DonorBox from '../../components/DonorBox';
 import {Donor} from '../../models/DonorModel';
@@ -31,6 +32,8 @@ const BloodScreen: React.FC<BloodScreenProps> = () => {
           <View>
             {donors.map((item, _i) => (
               <DonorBox
+                blood={item.blood}
+                plasma={item.plasma}
                 key={item._id}
                 name={item.userDetails.name}
                 address={item.userDetails.address}

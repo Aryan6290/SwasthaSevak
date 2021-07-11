@@ -1,15 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Switch, Text, View} from 'react-native';
 import MatIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 interface DonorBox {
   name: string;
   phone: string;
   address: string;
   email: string;
+  blood: boolean;
+  plasma: boolean;
 }
 
-const BPbox: React.FC<DonorBox> = props => {
+const DonorBox: React.FC<DonorBox> = props => {
   return (
     <View style={styles.boxStyle}>
       <View
@@ -19,8 +21,31 @@ const BPbox: React.FC<DonorBox> = props => {
           alignItems: 'center',
         }}>
         <View style={{alignItems: 'center', padding: 16, flex: 1}}>
-          <MatIcons name="body" color="#64b5f6" size={56} />
+          <MatIcons name="account" color="#64b5f6" size={56} />
           <Text style={styles.nameStyle}>{props.name}</Text>
+          <View
+            style={{
+              marginTop: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text>Blood </Text>
+            <Switch
+              style={{alignSelf: 'flex-start'}}
+              trackColor={{false: '#767577', true: '#81b0ff'}}
+              thumbColor={props.blood ? '#f5dd4b' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              value={props.blood}
+            />
+            <Text>Plasma </Text>
+            <Switch
+              style={{alignSelf: 'flex-start'}}
+              trackColor={{false: '#767577', true: '#81b0ff'}}
+              thumbColor={props.blood ? '#f5dd4b' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              value={props.plasma}
+            />
+          </View>
         </View>
         <View
           style={{
@@ -75,7 +100,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   nameStyle: {
-    marginTop: 16,
+    marginTop: 0,
     fontSize: 18,
     textAlign: 'center',
     color: '#555',
