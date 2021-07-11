@@ -7,6 +7,7 @@ const Login = ({ changeRouter, PasswordChange }) => {
   return (
     <IconContext.Provider value={{ size: "7em", color: "#fff" }}>
       <div className="loginContainer">
+        <h1 style={{ margin: "20px" }}>Swasth Sewak Admin Section</h1>
         <div className="form">
           <div className="imgContainer">
             <RiIcons.RiAdminFill />
