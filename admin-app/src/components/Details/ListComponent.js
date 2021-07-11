@@ -1,9 +1,22 @@
 import React from "react";
 import "./ListComponent.css";
 
-const ListComponent = ({ heading, data, category }) => {
+const ListComponent = ({ heading, data, category, token, optionChange }) => {
   const handleClick = (id) => {
-    fetch(`https://swastha-sevak-backend.herokuapp.com/api/${category}/${id}`)
+    fetch(
+      `https://swastha-sevak-backend.herokuapp.com/api/${category}/approval`,
+      {
+        method: "PUT",
+        headers: {
+          // Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((response) => console.log(response));
   };
@@ -15,9 +28,9 @@ const ListComponent = ({ heading, data, category }) => {
           <p style={{ color: "#a3a3a3", fontWeight: "bold" }}>Sort By</p>
           <label htmlFor="status">Status - </label>
 
-          <select name="status" id="status">
+          <select name="status" id="status" onChange={optionChange}>
             <option value="approved">Approved</option>
-            <option value="approved">Pending</option>
+            <option value="pending">Pending</option>
           </select>
         </div>
       </div>
