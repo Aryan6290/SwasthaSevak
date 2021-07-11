@@ -34,6 +34,17 @@ const SignupScreen: React.FC<SignupScreenProps> = props => {
   const [address, setAddress] = useState('');
   const [userId, setUserid] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const navigateToHome = () => {
+    props.navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'HOME',
+        },
+      ],
+    });
+  };
+
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       compressImageMaxWidth: 300,
@@ -45,8 +56,6 @@ const SignupScreen: React.FC<SignupScreenProps> = props => {
     }).then(imageRes => {
       if (imageRes.data) {
         bottomSheetRef.current?.close();
-        // setImage(imageRes.path);
-        // setbase64image(imageRes.data);
       } else {
         ToastAndroid.show('Failed to pick image', ToastAndroid.SHORT);
       }
@@ -63,8 +72,7 @@ const SignupScreen: React.FC<SignupScreenProps> = props => {
     }).then(image => {
       if (image.data) {
         bottomSheetRef.current?.close();
-        // setImage(image.path);
-        // setbase64image(image.data);
+        setImage(image.path);
       } else {
         ToastAndroid.show('Failed to pick image!', ToastAndroid.SHORT);
       }
@@ -141,7 +149,7 @@ const SignupScreen: React.FC<SignupScreenProps> = props => {
                 <Icon
                   name="camera"
                   size={35}
-                  color="#263238"
+                  color="#a9a9a9"
                   style={styles.imageIconStyle}
                 />
               </View>
@@ -185,7 +193,7 @@ const SignupScreen: React.FC<SignupScreenProps> = props => {
           placeholder=""
           textColor="#000"
           keyboard="default"
-          icon="call"
+          icon="key"
           value={userId}
           onChangeText={text => setUserid(text)}
         />
@@ -197,11 +205,11 @@ const SignupScreen: React.FC<SignupScreenProps> = props => {
           placeholder=""
           textColor="#000"
           keyboard="number-pad"
-          icon="call-outline"
+          icon="home-sharp"
           value={address}
           onChangeText={text => setAddress(text)}
         />
-        <Pressable onPress={() => {}} style={styles.btnContainer}>
+        <Pressable onPress={navigateToHome} style={styles.btnContainer}>
           <Text style={styles.btnText}>{'NEXT >'}</Text>
         </Pressable>
       </View>
