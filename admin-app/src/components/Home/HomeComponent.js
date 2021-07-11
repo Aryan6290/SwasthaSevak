@@ -12,22 +12,22 @@ const HomeComponent = () => {
         <Link to="/hospitals" className="gridItem">
           <FaIcons.FaHospital />
           <h3>Total Hospitals Approved</h3>
-          <h1>250</h1>
+          <h1>4</h1>
         </Link>
         <Link to="/hospitals" className="gridItem">
           <RiIcons.RiQuestionnaireFill />
           <h3>Pending Hospitals Approval Requests</h3>
-          <h1>250</h1>
+          <h1>3</h1>
         </Link>
         <Link to="/distributors" className="gridItem">
           <FaIcons.FaShoppingCart />
           <h3>Total Distributors Approved</h3>
-          <h1>250</h1>
+          <h1>6</h1>
         </Link>
         <Link to="/distributors" className="gridItem">
           <RiIcons.RiQuestionnaireFill />
           <h3>Pending Distributors Approval Requests</h3>
-          <h1>250</h1>
+          <h1>3</h1>
         </Link>
       </div>
     </IconContext.Provider>

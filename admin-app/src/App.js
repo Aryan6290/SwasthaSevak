@@ -8,6 +8,7 @@ import Distributor from "./pages/Distributor";
 // import PendingRequests from "./pages/PendingRequests";
 import Login from "./components/LoginSection/Login";
 // import Detail from "./components/Details/Detail";
+import swal from "sweetalert";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [password, setPassword] = useState("");
@@ -26,17 +27,15 @@ const App = () => {
       .then((response) => response.json())
       .then((response) => {
         if (response.status) {
-          console.log(response.status);
           setIsLoggedIn(!isLoggedIn);
           setToken(response.data);
         } else {
-          alert("Incorrect Password");
+          swal("Try Again", "Fill correct Admin Id and Password", "warning");
         }
       });
   };
   const PasswordChange = (event) => {
     setPassword(event.target.value);
-    console.log(event.target.value);
   };
 
   return (

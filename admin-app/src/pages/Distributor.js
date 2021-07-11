@@ -12,7 +12,6 @@ const Distributor = ({ token }) => {
         const response = await fetch(url);
         const json = await response.json();
         setData(json.data);
-        console.log(json);
       } catch (error) {
         console.log("error", error);
       }

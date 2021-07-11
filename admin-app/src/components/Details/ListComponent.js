@@ -1,5 +1,6 @@
 import React from "react";
 import "./ListComponent.css";
+import swal from "sweetalert";
 
 const ListComponent = ({ heading, data, category, token, optionChange }) => {
   const handleClick = (id) => {
@@ -8,7 +9,6 @@ const ListComponent = ({ heading, data, category, token, optionChange }) => {
       {
         method: "PUT",
         headers: {
-          // Accept: "application/json",
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
@@ -16,8 +16,10 @@ const ListComponent = ({ heading, data, category, token, optionChange }) => {
       }
     )
       .then((response) => response.json())
-      .then((response) => alert("Approved Successfully"))
-      .catch((err) => alert("Not approved try again"));
+      .then((response) =>
+        swal("Good job!", "Approved Successfully!!!", "success")
+      )
+      .catch((err) => swal("Try Again", "Not Approved", "warning"));
   };
   return (
     <div className="listContainer">

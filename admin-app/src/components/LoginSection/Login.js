@@ -15,7 +15,7 @@ const Login = ({ changeRouter, PasswordChange }) => {
           <label htmlFor="uname"></label>
           <input
             type="text"
-            placeholder="Enter Username"
+            placeholder="Enter Admin Id"
             name="uname"
             required
           />
@@ -23,7 +23,7 @@ const Login = ({ changeRouter, PasswordChange }) => {
           <label htmlFor="password"></label>
           <input
             type="password"
-            placeholder="Enter Password"
+            placeholder="Enter Admin Password"
             name="password"
             onChange={PasswordChange}
             required
