@@ -11,8 +11,9 @@ export class DonorRoutes {
 
     getRoutes() {
         const auth = new Auth().verifyToken;
-        return express.Router().post("", auth, (req, res) => {
-            this.funcs.addDonor(req, res);
-        })
+        return express.Router()
+            .post("", auth, (req, res) => {
+                this.funcs.addDonor(req, res);
+            })
     }
 }
