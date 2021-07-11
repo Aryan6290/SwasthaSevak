@@ -115,15 +115,18 @@ export class HospitalFunctions {
       console.log(err);
       res.status(500).send({ status: false, message: "Error in Backend" });
     }
+  }
 
-    async getBeds(req: Request, res: Response) {
-        try {
-            const id = req.params.id;
-            const data = this.db.collection(COLLECTIONS.BEDS).findOne({ _id: new ObjectId(id) });
-            res.status(200).send({ status: true, message: "found", data });
-        } catch (err) {
-            console.log(err);
-            res.status(500).send({ status: false, message: "Error in Backend" });
-        }
+  async getBeds(req: Request, res: Response) {
+    try {
+      const id = req.params.id;
+      const data = this.db
+        .collection(COLLECTIONS.BEDS)
+        .findOne({ _id: new ObjectId(id) });
+      res.status(200).send({ status: true, message: "found", data });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({ status: false, message: "Error in Backend" });
     }
+  }
 }
