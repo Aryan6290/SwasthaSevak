@@ -15,6 +15,9 @@ export class HospitalRoutes {
             .get("", (req, res) => {
                 this.funcs.getAllHospital(req, res);
             })
+            .get("/bed/:id", (req, res) => {
+                this.funcs.getBeds(req, res);
+            })
             .post("/bed", auth, (req, res) => {
                 this.funcs.initializeBedCount(req, res);
             })
