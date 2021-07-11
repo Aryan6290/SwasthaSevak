@@ -2,7 +2,12 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import MatIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-interface BPboxProps {}
+interface BPboxProps {
+  name: string;
+  phone: string;
+  address: string;
+  email: string;
+}
 
 const BPbox: React.FC<BPboxProps> = props => {
   return (
@@ -13,12 +18,13 @@ const BPbox: React.FC<BPboxProps> = props => {
           paddingRight: 10,
           alignItems: 'center',
         }}>
-        <View style={{alignItems: 'center', padding: 16}}>
-          <MatIcons name="medical-bag" color="#64b5f6" size={56} />
-          <Text style={styles.nameStyle}>John Doe</Text>
+        <View style={{alignItems: 'center', padding: 16, flex: 1}}>
+          <MatIcons name="shopping-search" color="#64b5f6" size={56} />
+          <Text style={styles.nameStyle}>{props.name}</Text>
         </View>
         <View
           style={{
+            flex: 1,
             justifyContent: 'space-around',
           }}>
           <View
@@ -30,7 +36,7 @@ const BPbox: React.FC<BPboxProps> = props => {
               marginBottom: 16,
             }}>
             <MatIcons name="phone" color="#64b5f6" size={22} />
-            <Text style={styles.titleStyle}>12345678</Text>
+            <Text style={styles.titleStyle}>{props.phone}</Text>
           </View>
           <View
             style={{
@@ -41,7 +47,7 @@ const BPbox: React.FC<BPboxProps> = props => {
               marginBottom: 16,
             }}>
             <MatIcons name="home" color="#64b5f6" size={22} />
-            <Text style={styles.titleStyle}>Some long address here</Text>
+            <Text style={styles.titleStyle}>{props.address}</Text>
           </View>
           <View
             style={{
@@ -51,7 +57,7 @@ const BPbox: React.FC<BPboxProps> = props => {
               justifyContent: 'flex-start',
             }}>
             <MatIcons name="charity" color="#64b5f6" size={22} />
-            <Text style={styles.titleStyle}>AB+</Text>
+            <Text style={styles.titleStyle}>{props.email}</Text>
           </View>
         </View>
       </View>
@@ -60,6 +66,7 @@ const BPbox: React.FC<BPboxProps> = props => {
 };
 const styles = StyleSheet.create({
   boxStyle: {
+    marginVertical: 20,
     alignSelf: 'center',
     width: '95%',
     padding: 14,
