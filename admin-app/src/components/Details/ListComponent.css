@@ -28,7 +28,7 @@ thead {
   text-align: left;
 }
 tr {
-  font-weight: 700;
+  /* font-weight: ; */
   border: 1px solid #ececec;
 }
 .tr-light {
@@ -43,4 +43,13 @@ th {
 }
 td {
   padding: 15px;
+}
+tr {
+  text-transform: uppercase;
+}
+td button {
+  padding: 5px 10px;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
 }

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { IconContext } from "react-icons/lib";
 import * as FaIcons from "react-icons/fa";
+import * as RiIcons from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { SideBarData } from "./SideBarData";
 import "./SideBar.css";
 
-const SideBar = () => {
+const SideBar = ({ changeRouter }) => {
   const [sidebar, setSidebar] = useState(true);
 
   const showSideBar = () => {
@@ -31,6 +32,14 @@ const SideBar = () => {
                 </li>
               );
             })}
+            <li
+              className="nav-text"
+              style={{ marginLeft: "15px", color: "#fff", cursor: "pointer" }}
+              onClick={changeRouter}
+            >
+              <RiIcons.RiLogoutBoxFill />
+              {sidebar ? <span>Log Out</span> : <span></span>}
+            </li>
           </ul>
         </nav>
       </IconContext.Provider>

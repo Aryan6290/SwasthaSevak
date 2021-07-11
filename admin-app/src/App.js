@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Hospitals from "./pages/Hospitals";
 import Distributor from "./pages/Distributor";
-import PendingRequests from "./pages/PendingRequests";
+// import PendingRequests from "./pages/PendingRequests";
 import Login from "./components/LoginSection/Login";
 // import Detail from "./components/Details/Detail";
 const App = () => {
@@ -44,7 +44,7 @@ const App = () => {
       <div style={{ display: "flex", flexWrap: "flex-wrap" }}>
         {isLoggedIn ? (
           <Router>
-            <SideBar />
+            <SideBar changeRouter={changeRouter} />
 
             <Switch>
               <Route path="/" exact component={Dashboard} />
@@ -57,7 +57,6 @@ const App = () => {
                 component={() => <Distributor token={token} />}
               />
               {/* <Route path="/distributors/:_id" component={Dashboard} /> */}
-              <Route path="/requests" component={PendingRequests} />
             </Switch>
           </Router>
         ) : (
