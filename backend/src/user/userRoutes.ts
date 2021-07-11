@@ -24,7 +24,7 @@ export class UserRoutes {
             .post("/login", (req, res) => {
                 this.funcs.loginUser(req, res);
             })
-            .get("/adminlogin", (req, res) => {
+            .post("/adminlogin", (req, res) => {
                 this.funcs.adminLogin(req, res);
             })
             .get("", auth, (req, res) => {
