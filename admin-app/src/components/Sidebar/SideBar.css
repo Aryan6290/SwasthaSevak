@@ -6,7 +6,7 @@
 .nav-menu {
   background-color: #060b26;
   width: 100px;
-  height: auto;
+  height: 100vh;
   display: flex;
   justify-content: center;
   transition: 50ms;
@@ -40,13 +40,6 @@
   width: 100%;
 }
 .navbar-toggle {
-  /* background-color: #060b26;
-  padding-top: 5px;
-  padding-right: 5px;
-  padding-bottom: 36px;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end; */
   width: 100%;
   display: flex;
   justify-content: flex-start;
