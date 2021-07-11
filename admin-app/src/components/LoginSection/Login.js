@@ -7,7 +7,7 @@ const Login = ({ changeRouter, PasswordChange }) => {
   return (
     <IconContext.Provider value={{ size: "7em", color: "#fff" }}>
       <div className="loginContainer">
-        <form action="/login" method="post">
+        <div className="form">
           <div className="imgContainer">
             <RiIcons.RiAdminFill />
           </div>
@@ -32,7 +32,7 @@ const Login = ({ changeRouter, PasswordChange }) => {
           <button type="submit" className="loginButton" onClick={changeRouter}>
             Login
           </button>
-        </form>
+        </div>
       </div>
     </IconContext.Provider>
   );

@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 20,
     elevation: 5,
+    marginVertical: 20,
   },
   nameStyle: {
     marginTop: 16,

@@ -1,7 +1,7 @@
 import React from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import * as BiIcons from "react-icons/bs";
+// import * as BiIcons from "react-icons/bs";
 
 export const SideBarData = [
   {
@@ -22,10 +22,10 @@ export const SideBarData = [
     icon: <AiIcons.AiOutlineShoppingCart />,
     className: "nav-text",
   },
-  {
-    title: "Pending Requests",
-    path: "/requests",
-    icon: <BiIcons.BsFillQuestionSquareFill />,
-    className: "nav-text",
-  },
+  // {
+  //   title: "Log Out",
+  //   path: "/",
+  //   icon: <RiIcons.RiLogoutBoxFill />,
+  //   className: "nav-text",
+  // },
 ];

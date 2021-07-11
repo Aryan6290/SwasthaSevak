@@ -3,6 +3,12 @@ import "./ListComponent.css";
 
 const ListComponent = ({ heading, data, category, token, optionChange }) => {
   const handleClick = (id) => {
+    let jsonString = {};
+    if (category === "hospital") {
+      jsonString = { hospitalId: id };
+    } else if (category === "distributor") {
+      jsonString = { distributorId: id };
+    }
     fetch(
       `https://swastha-sevak-backend.herokuapp.com/api/${category}/approval`,
       {
@@ -12,9 +18,7 @@ const ListComponent = ({ heading, data, category, token, optionChange }) => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          id: id,
-        }),
+        body: JSON.stringify(jsonString),
       }
     )
       .then((response) => response.json())
@@ -54,9 +58,15 @@ const ListComponent = ({ heading, data, category, token, optionChange }) => {
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.status}</td>
-                <td>
-                  <button onClick={() => handleClick(item._id)}>Approve</button>
-                </td>
+                {item.status === "pending" ? (
+                  <td>
+                    <button onClick={() => handleClick(item._id)}>
+                      Approve
+                    </button>
+                  </td>
+                ) : (
+                  <td>Already Approved</td>
+                )}
               </tr>
             );
           })}
