@@ -49,10 +49,12 @@ npm start
 
 
 ### Mobile App
+<p float="left">
+<img src="https://user-images.githubusercontent.com/55250734/125205529-4a0ddf80-e2a0-11eb-96b9-c17049b94233.png"  width="200" height="400" hspace="20">
+<img src="https://user-images.githubusercontent.com/55250734/125205558-7aee1480-e2a0-11eb-90b1-861d74451518.png"  width="200" height="400" hspace="20">
+<img src="https://user-images.githubusercontent.com/55250734/125205576-8c372100-e2a0-11eb-9fd2-08d18cd7bd73.png"  width="200" height="400" hspace="20">
+</p>
 
-<img src="https://user-images.githubusercontent.com/55250734/125205529-4a0ddf80-e2a0-11eb-96b9-c17049b94233.png"  width="150" height="300">
-<img src="https://user-images.githubusercontent.com/55250734/125205558-7aee1480-e2a0-11eb-90b1-861d74451518.png"  width="150" height="300">
-<img src="https://user-images.githubusercontent.com/55250734/125205576-8c372100-e2a0-11eb-9fd2-08d18cd7bd73.png"  width="150" height="300">
 
 
 
