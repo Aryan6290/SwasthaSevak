@@ -42,7 +42,7 @@ Navigate to the admin-app folder , open it in a IDE or a text editor such as VsC
 ```
 npm start
 ```
-#Screenshots
+# Screenshots
 
 ### Admin App
 ![Screenshot (729)](https://user-images.githubusercontent.com/55250734/125205424-c6ec8980-e29f-11eb-99b5-e182ca2c8712.png)
