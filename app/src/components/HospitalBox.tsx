@@ -19,12 +19,14 @@ const HospitalBox: React.FC<HospitalBoxProps> = props => {
           paddingRight: 10,
           alignItems: 'center',
         }}>
-        <View style={{alignItems: 'center', padding: 16}}>
+        <View style={{alignItems: 'center', padding: 16, flex: 1}}>
           <MatIcons name="hospital-building" color="#64b5f6" size={56} />
           <Text style={styles.nameStyle}>{props.name}</Text>
         </View>
         <View
           style={{
+            flex: 1,
+            flexWrap: 'wrap',
             justifyContent: 'space-around',
           }}>
           <View

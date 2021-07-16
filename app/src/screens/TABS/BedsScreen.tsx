@@ -2,6 +2,7 @@
 import React, {useEffect} from 'react';
 import {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 import HospitalBox from '../../components/HospitalBox';
@@ -22,20 +23,22 @@ const BedsScreen: React.FC<BedsScreenProps> = () => {
   }, []);
   return (
     <SafeAreaView style={styles.container}>
-      {hospitals == [] ? (
-        <View></View>
-      ) : (
-        <View>
-          {hospitals.map((item, _i) => (
-            <HospitalBox
-              name={item.name}
-              address={item.address}
-              phone={item.phoneNum.toString()}
-              beds={6 * (_i + 4) + 1}
-            />
-          ))}
-        </View>
-      )}
+      <ScrollView>
+        {hospitals == [] ? (
+          <View></View>
+        ) : (
+          <View>
+            {hospitals.map((item, _i) => (
+              <HospitalBox
+                name={item.name}
+                address={item.address}
+                phone={item.phoneNum.toString()}
+                beds={6 * (_i + 4) + 1}
+              />
+            ))}
+          </View>
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 };

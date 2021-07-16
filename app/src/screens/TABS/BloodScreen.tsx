@@ -18,6 +18,7 @@ const BloodScreen: React.FC<BloodScreenProps> = () => {
   const getData = async () => {
     const res = await getDonors();
     setdonors(res);
+
     console.log(donors);
   };
   useEffect(() => {
